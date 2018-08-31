@@ -1,7 +1,7 @@
 Package: lubtools
 Type: Package
 Title: Tools that I (lub( use
-Veersion: 0.1.0
+Version: 0.1.0
 Authors@R: person("Tiago", "Lubiana", email = "tiago.lubiana.alves@usp.br",
   role = c("aut", "cre"))
 Maintainer: Tiago Lubiana <tiago.lubiana.alves@usp.br>
