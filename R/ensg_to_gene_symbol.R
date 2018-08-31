@@ -14,4 +14,4 @@ ensg_to_gene_symbol <- function(ensg_character_vector){
   data('biomart_august_2018')
   ensg_table[ensg_table$ensembl_gene_id %in% ensg_character_vector,]$hgnc_symbol
 }
-m
+
