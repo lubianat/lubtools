@@ -29,5 +29,5 @@ ensg_to_gene_symbol <- function(ensg_character_vector){
 
 ensg_to_ensp <- function(ensg_character_vector){
   data('biomart_august_2018')
-  genes[ensg_table$ensembl_gene_id %in% ensg_character_vector,]$ensemble_peptide_id
+  genes[genes$ensembl_gene_id %in% ensg_character_vector,]$ensemble_peptide_id
 }
