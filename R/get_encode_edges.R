@@ -1,6 +1,5 @@
 #' get_encode_edges Function
 #'
-#'STILL NOT WORKING!
 # queries encode 2015 database for edges containing the genes of interest
 # return dataframe of edges
 #' @param vector_of_gene_symbols A character vector of gene symbols
