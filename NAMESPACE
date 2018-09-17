@@ -3,4 +3,5 @@
 export(ensg_to_ensp)
 export(ensg_to_gene_symbol)
 export(get_KEA_edges)
+export(get_encode_edges)
 export(get_humap_edges)
