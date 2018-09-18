@@ -13,7 +13,7 @@ get_candidates_from_network <- function(g , network_measure, top_candidates, bla
   require(tibble)
   require(dplyr)
   if (network_measure == 'strength'){
-    gene_candidates <- as.data.frame(strength(g))
+    gene_candidates <- as.data.frame(igraph::strength(g))
   }
   if (network_measure == 'eigen_centrality'){
     gene_candidates <- as.data.frame(eigen_centrality(g))
@@ -21,9 +21,9 @@ get_candidates_from_network <- function(g , network_measure, top_candidates, bla
   gene_candidates <- rownames_to_column(gene_candidates, var = 'gene')
   gene_candidates <- gene_candidates %>%
     filter(!(gene %in% blacklist))
-
+ names(gene_candidates)[2] <- 'measure'
   gene_candidates_top <- gene_candidates %>%
-    arrange(desc(`strength(g)`)) %>%
+    arrange(desc(measure)) %>%
     head(top_candidates*length(gene_candidates))
   return(gene_candidates_top)
 
