@@ -9,7 +9,6 @@
 get_encode_edges <-
   function(vector_of_gene_symbols,
            type_of_regulation) {
-    require(lubtools)
     require(dplyr)
     data(encode)
     if (type_of_regulation == 'common_tf') {
@@ -68,7 +67,6 @@ get_encode_edges <-
       edgelist <- edgelist[-1,]
       tfs <-
         encode$geneset.names[encode$geneset.names %in% vector_of_gene_symbols]
-      vector_of_gene_symbols <- ''
       target_sets <-
         encode$genesets[encode$geneset.names %in% vector_of_gene_symbols]
       if (length(target_sets) == 0){ return(edgelist)}
@@ -86,4 +84,3 @@ get_encode_edges <-
     colnames(edgelist) <- c('node_1', 'node_2')
     return(edgelist)
   }
-
