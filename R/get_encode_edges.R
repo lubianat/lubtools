@@ -70,8 +70,10 @@ get_encode_edges <-
       edgelist <- edgelist[-1,]
       tfs <-
         encode$geneset.names[encode$geneset.names %in% vector_of_gene_symbols]
+      vector_of_gene_symbols <- ''
       target_sets <-
         encode$genesets[encode$geneset.names %in% vector_of_gene_symbols]
+      if (length(target_sets) == 0){ return(edgelist)}
       for (gene_tf_index in 1:length(tfs)) {
         for (gene_target in vector_of_gene_symbols) {
           if (gene_target %in% target_sets[[gene_tf_index]] & gene_target != ""){
@@ -83,5 +85,7 @@ get_encode_edges <-
       }
 
     }
+    colnames(edgelist) <- c('node_1', 'node_2')
+    return(edgelist)
   }
 
