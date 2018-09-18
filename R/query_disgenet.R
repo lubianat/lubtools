@@ -1,48 +1,39 @@
-library(DBI)
+#' get_disgenet_info Function
+# queries humap database for edges containing the genes of interest
+# return dataframe of edges
+#' @param disease string containing the disease you are looking for (use first letter uppercase )
+#' @param complete_result If true, a comprehensive list explaining
+#' the reason behind the associations will be returned.
+#' Defaults to false (only score and number of PMIDs for the disease-gene association)
+#' @param database_path The addres of the .db file downloaded from
+#' http://www.disgenet.org/ds/DisGeNET/files/current/disgenet_2017.db.gz
+#' @examples
+#' url <- 'http://www.disgenet.org/ds/DisGeNET/files/current/disgenet_2017.db.gz'
+#' download.file(url,'./disgenet.R')
+#' unzip file manually to data directory
+#'
+#' disgenet_dengue <- get_disgenet_info('Dengue', database_path = 'data/disgenet_2017.db')
+#' @export
+get_disgenet_info <- function(disease, complete_result = F, database_path){
+  require(DBI)
+  library(RSQLite)
+  db = dbConnect(SQLite(), dbname=database_path)
+  query = paste0("SELECT * FROM diseaseAttributes WHERE diseaseName LIKE '%'",disease,"%'")
+  possibleIds <- dbGetQuery(db, "SELECT * FROM diseaseAttributes WHERE diseaseName LIKE '%Dengue%'")
+  print(possibleIds)
+  choice <- readline('Which ID do you want? (input the index number)')
+  choice <- as.numeric(choice)
+  selectedId<- possibleIds$diseaseNID[choice]
+  possibleEdges <- dbGetQuery(db, paste0('SELECT * FROM geneDiseaseNetwork WHERE diseaseNID IS ', "'", selectedId, "'" ))
+  geneAttributes <- dbReadTable(db, "geneAttributes")
 
-library(RSQLite)
-db = dbConnect(SQLite(), dbname="data/disgenet_2017.db")
+  possibleEdges <- inner_join(possibleEdges,geneAttributes, by="geneNID")
 
-alltables = dbListTables(con)
-p1 = dbGetQuery( con,'select * from populationtable' )
+  possibleEdges %>%
+    group_by(geneName) %>%
+    summarise(n_of_studies = n(), score = max(score))
 
-dbListTables(con)
-dbReadTable(db, "diseaseAttributes")
 
-possibleIds <- dbGetQuery(db, "SELECT * FROM diseaseAttributes WHERE diseaseName LIKE '%Dengue%'")
-
-print(possibleIds)
-
-choice <- readline('Which ID do you want? (input the index number)')
-library(DBI)
-
-library(RSQLite)
-db = dbConnect(SQLite(), dbname="data/disgenet_2017.db")
-
-alltables = dbListTables(con)
-p1 = dbGetQuery( con,'select * from populationtable' )
-
-dbListTables(db)
-head(dbReadTable(db, "geneDiseaseNetwork"))
-
-possibleIds <- dbGetQuery(db, "SELECT * FROM diseaseAttributes WHERE diseaseName LIKE '%Dengue%'")
-
-print(possibleIds)
-
-if (F){
-choice <- readline('Which ID do you want? (input the index number)')
-choice <- as.numeric(choice)
-} else {
-choice <- 1
 }
 
-selectedId<- possibleIds$diseaseNID[choice]
 
-possibleEdges <- dbGetQuery(db, paste0('SELECT * FROM geneDiseaseNetwork WHERE diseaseNID IS ', "'", selectedId, "'" ))
-geneAttributes <- dbReadTable(db, "geneAttributes")
-
-possibleEdges <- inner_join(possibleEdges,geneAttributes, by="geneNID")
-
-selected_edges <- possibleEdges %>%
-  group_by(geneName) %>%
-  summarise(n_of_studies = n(), score = max(score))

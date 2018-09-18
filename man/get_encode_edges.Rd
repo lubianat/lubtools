@@ -12,5 +12,5 @@ get_encode_edges(vector_of_gene_symbols, type_of_regulation)
 \item{type_of_regulation}{Either 'direct' or 'common_tf'}
 }
 \description{
-STILL NOT WORKING!
+get_encode_edges Function
 }
