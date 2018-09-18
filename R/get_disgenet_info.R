@@ -21,7 +21,7 @@ get_disgenet_info <- function(disease, complete_result = F, database_path){
   require(dplyr)
   db = dbConnect(SQLite(), dbname=database_path)
   query = paste0("SELECT * FROM diseaseAttributes WHERE diseaseName LIKE '%'",disease,"%'")
-  possibleIds <- dbGetQuery(db, "SELECT * FROM diseaseAttributes WHERE diseaseName LIKE '%Dengue%'")
+  possibleIds <- dbGetQuery(db, query)
   print(possibleIds)
   choice <- readline('Which ID do you want? (input the index number)')
   choice <- as.numeric(choice)
