@@ -11,6 +11,7 @@
 get_candidates_from_network <- function(g , network_measure, top_candidates, blacklist){
   require(igraph)
   require(tibble)
+  require(dplyr)
   if (network_measure == 'strength'){
     gene_candidates <- as.data.frame(strength(g))
   }
