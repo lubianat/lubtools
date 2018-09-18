@@ -7,9 +7,13 @@
 get_candidates_from_network(g, network_measure, top_candidates, blacklist)
 }
 \arguments{
+\item{g}{a igraph}
+
 \item{network_measure}{either 'strength' or 'eigen_centrality'}
 
 \item{top_candidates}{the portion of candidates that will be taken}
+
+\item{blacklist}{vector of genes to be removed from candidate list, presumably because once they were degs}
 }
 \description{
 get_candidates_from_network Function
