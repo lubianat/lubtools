@@ -18,8 +18,6 @@ get_encode_edges <-
       upstream_tfs <- list()
 
       for (gene in vector_of_gene_symbols) {
-        print(gene)
-        print(flag)
         flag = 0
         n_of_genes_found = 0
         for (each_set in encode$genesets) {
