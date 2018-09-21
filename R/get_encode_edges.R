@@ -41,11 +41,12 @@ get_encode_edges <-
       # i have no idea why the list generated also included each of the geneset.names.
       # but as I don't want them, I have removed 'em
       upstream_tfs <- upstream_tfs[-c(1:flag)]
-      if(length(upstream_tfs == 0)){ return(edgelist)  }
+      if(length(upstream_tfs == 0) | length(upstream_tfs == 1) ){ return(edgelist)  }
 
       for (upstream_tf_now in 1:(length(upstream_tfs) - 1)) {
         print(upstream_tf_now)
         for (upstream_tf_to_compare in (upstream_tf_now + 1):length(upstream_tfs)) {
+          if(length(upstream_tfs)){ return(edgelist)  }
           print('vai')
           print('vendo')
           print(upstream_tf_now)
