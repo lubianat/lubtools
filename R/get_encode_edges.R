@@ -5,11 +5,11 @@
 #' @param vector_of_gene_symbols A character vector of gene symbols
 #' @param type_of_regulation Either 'direct' or 'common_tf'
 #' @export
-
+vector_of_gene_symbols <- vector_of_seed_genes
 get_encode_edges <-
   function(vector_of_gene_symbols,
            type_of_regulation) {
-    require(dplyr)
+    print('ok')
     data(encode)
     if (type_of_regulation == 'common_tf') {
       edgelist <- data.frame(edge_1 = c('mock'), edge_2 = c('mock'))
@@ -21,12 +21,8 @@ get_encode_edges <-
         n_of_genes_found = 0
         for (each_set in encode$genesets) {
           flag <- flag + 1
-          if (runif(1) > 0.999) {
-            print(each_set)
-          }
           if (gene %in% each_set) {
             n_of_genes_found <- n_of_genes_found + 1
-            #      print('it is!')
             #      print(encode$geneset.names[flag])
             tf <- encode$geneset.names[flag]
             hm <- c(upstream_tfs[[gene]], tf)
@@ -38,20 +34,13 @@ get_encode_edges <-
 
       }
 
-      # i have no idea why the list generated also included each of the geneset.names.
-      # but as I don't want them, I have removed 'em
-      upstream_tfs <- upstream_tfs[-c(1:flag)]
-      if(length(upstream_tfs == 0) | length(upstream_tfs == 1) ){ return(edgelist)  }
+      if(length(upstream_tfs) == 0 | length(upstream_tfs)  == 1){ return(edgelist)  }
 
       for (upstream_tf_now in 1:(length(upstream_tfs) - 1)) {
         print(upstream_tf_now)
+        print(length(upstream_tf_now))
+
         for (upstream_tf_to_compare in (upstream_tf_now + 1):length(upstream_tfs)) {
-          if(length(upstream_tfs)){ return(edgelist)  }
-          print('vai')
-          print('vendo')
-          print(upstream_tf_now)
-          print('em')
-          print(upstream_tf_to_compare)
           if (sum(upstream_tfs[[upstream_tf_now]] %in% upstream_tfs[[upstream_tf_to_compare]]) >= 3) {
             print('hit!')
             new_edge <-
