@@ -5,7 +5,7 @@
 #' @param vector_of_gene_symbols A character vector of gene symbols
 #' @param type_of_regulation Either 'direct' or 'common_tf'
 #' @export
-vector_of_gene_symbols <- vector_of_seed_genes
+
 get_encode_edges <-
   function(vector_of_gene_symbols,
            type_of_regulation) {
