@@ -15,7 +15,7 @@
 #' disgenet_dengue <- get_disgenet_info('Dengue', database_path = 'data/disgenet_2017.db')
 #' @export
 #'
-get_disgenet_info <- function(disease, complete_result = F, database_path){
+get_disgenet_info <- function(NID, complete_result = F, database_path){
   require(DBI)
   require(RSQLite)
   require(dplyr)
