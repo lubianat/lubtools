@@ -4,17 +4,17 @@
 \alias{get_disgenet_info}
 \title{get_disgenet_info Function}
 \usage{
-get_disgenet_info(disease, complete_result = F, database_path)
+get_disgenet_info(NID, complete_result = F, database_path)
 }
 \arguments{
-\item{disease}{string containing the disease you are looking for (use first letter uppercase )}
-
 \item{complete_result}{If true, a comprehensive list explaining
 the reason behind the associations will be returned.
 Defaults to false (only score and number of PMIDs for the disease-gene association)}
 
 \item{database_path}{The addres of the .db file downloaded from
 http://www.disgenet.org/ds/DisGeNET/files/current/disgenet_2017.db.gz}
+
+\item{disease}{string containing the disease you are looking for (use first letter uppercase )}
 }
 \description{
 get_disgenet_info Function
