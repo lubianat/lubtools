@@ -4,20 +4,23 @@
 # return dataframe of edges
 #' @param vector_of_gene_symbols A character vector of gene symbols
 #' @param type_of_regulation Either 'direct' or 'common_tf'
+#' @param verbose If true, adds verbosity. Defaults to true.
 #' @export
-
+#'
 get_encode_edges <-
   function(vector_of_gene_symbols,
-           type_of_regulation) {
+           type_of_regulation, verbose =T) {
    # print('ok')
     data(encode)
     if (type_of_regulation == 'common_tf') {
       edgelist <- data.frame(edge_1 = c('mock'), edge_2 = c('mock'))
       edgelist <- edgelist[-1,]
       upstream_tfs <- list()
-
+      vector_of_gene_symbols <- joint_genes
       for (gene in vector_of_gene_symbols) {
+
         flag = 0
+        print(paste(gene,flag))
         n_of_genes_found = 0
         for (each_set in encode$genesets) {
           flag <- flag + 1
@@ -37,12 +40,14 @@ get_encode_edges <-
       if(length(upstream_tfs) == 0 | length(upstream_tfs)  == 1){ return(edgelist)  }
 
       for (upstream_tf_now in 1:(length(upstream_tfs) - 1)) {
-#        print(upstream_tf_now)
-#        print(length(upstream_tf_now))
+          if (verbose == T){
+          print(paste('looking for gene', upstream_tf_now, 'out of', length(upstream_tfs)))
+}
 
         for (upstream_tf_to_compare in (upstream_tf_now + 1):length(upstream_tfs)) {
           if (sum(upstream_tfs[[upstream_tf_now]] %in% upstream_tfs[[upstream_tf_to_compare]]) >= 3) {
-#            print('hit!')
+
+
             new_edge <-
               data.frame(names(upstream_tfs[upstream_tf_now]), names(upstream_tfs[upstream_tf_to_compare]))
             edgelist <-  rbind(edgelist, new_edge)
