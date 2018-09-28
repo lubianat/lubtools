@@ -9,7 +9,7 @@
 get_encode_edges <-
   function(vector_of_gene_symbols,
            type_of_regulation) {
-    print('ok')
+   # print('ok')
     data(encode)
     if (type_of_regulation == 'common_tf') {
       edgelist <- data.frame(edge_1 = c('mock'), edge_2 = c('mock'))
@@ -37,12 +37,12 @@ get_encode_edges <-
       if(length(upstream_tfs) == 0 | length(upstream_tfs)  == 1){ return(edgelist)  }
 
       for (upstream_tf_now in 1:(length(upstream_tfs) - 1)) {
-        print(upstream_tf_now)
-        print(length(upstream_tf_now))
+#        print(upstream_tf_now)
+#        print(length(upstream_tf_now))
 
         for (upstream_tf_to_compare in (upstream_tf_now + 1):length(upstream_tfs)) {
           if (sum(upstream_tfs[[upstream_tf_now]] %in% upstream_tfs[[upstream_tf_to_compare]]) >= 3) {
-            print('hit!')
+#            print('hit!')
             new_edge <-
               data.frame(names(upstream_tfs[upstream_tf_now]), names(upstream_tfs[upstream_tf_to_compare]))
             edgelist <-  rbind(edgelist, new_edge)

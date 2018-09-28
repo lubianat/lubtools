@@ -12,8 +12,10 @@
 
 ensg_to_gene_symbol <- function(ensg_character_vector){
   data('biomart_august_2018')
-  genes[genes$ensembl_gene_id %in% ensg_character_vector,]$hgnc_symbol
-}
+  bla <- genes[genes$ensembl_gene_id %in% ensg_character_vector,]$hgnc_symbol
+  rm(list=c('genes'))
+  return(bla)
+  }
 
 # this script runs biomart to chanse ENSG to gene symbols
 # WRITTEN BY TIAGO lUBIANA 18/08/2018
