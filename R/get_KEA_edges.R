@@ -20,9 +20,9 @@ get_KEA_edges <- function(vector_of_gene_symbols) {
   }
 
   for (kinase_target_now in 1:(length(upstream_kinases)-1)) {
-    print(kinase_target_now)
+#    print(kinase_target_now)
     for (kinase_target_to_compare in (kinase_target_now+1):length(upstream_kinases)) {
-      print(kinase_target_to_compare)
+#      print(kinase_target_to_compare)
       if (any(upstream_kinases[[kinase_target_now]] %in% upstream_kinases[[kinase_target_to_compare]])) {
         new_edge <- data.frame(names(upstream_kinases[kinase_target_now]), names(upstream_kinases[kinase_target_to_compare]))
         edgelist <-  rbind(edgelist,new_edge )
