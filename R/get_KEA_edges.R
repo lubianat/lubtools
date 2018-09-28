@@ -30,6 +30,7 @@ get_KEA_edges <- function(vector_of_gene_symbols) {
     }
   }
   colnames(edgelist) <- c('node_1', 'node_2')
+  rm(list=c('KEA'))
  return(edgelist)
 
 }
