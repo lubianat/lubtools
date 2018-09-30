@@ -18,6 +18,7 @@ get_candidates_from_network <- function(g , network_measure,  blacklist){
     gene_candidates <- as.data.frame(eigen_centrality(g))
   }
   gene_candidates <- rownames_to_column(gene_candidates, var = 'gene')
+  print(gene_candidates)
   gene_candidates <- gene_candidates %>%
     filter(!(gene %in% blacklist))
 
