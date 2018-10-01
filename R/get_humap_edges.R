@@ -14,6 +14,5 @@ get_humap_edges <- function(vector_of_gene_symbols) {
   node_one <- as.vector(humap$V1)
   node_two <- as.vector(humap$V6)
   humap %>%
-    filter(node_one %in% vector_of_gene_symbols |
-             node_two %in% vector_of_gene_symbols)
+    filter(node_one %in% vector_of_gene_symbols & node_two %in% vector_of_gene_symbols)
 }
